@@ -4,7 +4,7 @@ run `sudo ./install.sh`
 
 ### file managment ###
 
-software                - software to run on the qemu.
-hardware                - hardware configurations for the qemu.
-notes                   - notes files.
+software                - software to run on the qemu. </br>
+hardware                - hardware configurations for the qemu. </br>
+notes                   - notes files. </br>
 
