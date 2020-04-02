@@ -1,7 +1,7 @@
 ENTRY(_Start)
 SECTIONS
 {
-    . = 0x10000;
+    . = 0x40000000;
     startup : { startup.o(.text)}
     .data : {*(.data)}
     .bss : {*(.bss)}

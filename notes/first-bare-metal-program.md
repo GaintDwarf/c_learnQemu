@@ -4,7 +4,7 @@
 ## The Application
 We need some small c program, find what is the address of UART0.
 
-###### init.c
+###### test.c
 --------------------------------------------------------------------------------
 ```c
 volatile unsigned char * const UART0_PTR = (unsigned char *)0x(The adderess of the uart device);
@@ -47,7 +47,7 @@ linker script for the the compiler.
 ENTRY(_Start)                           # Set the entry point to the program
 SECTIONS                                # Specify the sections
 {
-    . = 0x10000;                        # The start address id 0x10000 (where the execution 
+    . = 0x4000000;                      # The start address id 0x4000000 (where the execution 
                                         #                               start when using -kernel 
                                         #                               in the qemu)
     startup : { startup.o(.text)}       # Mark that this is where the startup will sit (the name of the 
@@ -62,11 +62,11 @@ SECTIONS                                # Specify the sections
 
 ## Compiling and running on qemu
 
-> in this example compileing to `arm926` cpu which is matching for `versatilepb` qemu machine (ARM).
+> in this example compileing to a normal arm cpu which is matching for `virt` qemu machine (ARM).
 
-- assemble the startup.s file ```arm-none-eabi-as  -mcpu=arm926ej-s startup.s    -o startup.o ```
-- assemble the init.c file    ```arm-none-eabi-gcc -mcpu=arm926ej-s init.c       -o init.o ```
+- assemble the startup.s file ```arm-none-eabi-as  startup.s -o startup.o ```
+- assemble the test.c file    ```arm-none-eabi-gcc -c test.c -o init.o ```
 - link files into an elf file ```arm-none-eabi-ld  -T linker.ld init.o startup.o -o output.elf ```
-- create the binary file      ```arm-none-eabi-objcopy -O binary output.elf output.bin```
+- run on qemu                 ```qemu-system-arm -M virt -nographic -kernel output.elf```
 
 
