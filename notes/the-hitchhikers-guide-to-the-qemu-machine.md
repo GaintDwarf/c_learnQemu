@@ -96,11 +96,15 @@ Lets not trust it for now and lets try and follow the link:
 
 1. `memory_region_add_subregion(sysmem, vms->memmap[VIRT_MEM].base, machine->ram);`
     (line: 1507)
+2. `vms->bootinfo.loader_start = vms->memmap[VIRT_MEM].base;` (line: 1871)
 
 Analyses:
 1. This is quite simple, we create Pointer from the system memory (`sysmem`) to
     the RAM memory region (`machine->ram`) created previously be the QEMU system
     at the specified address (`vms->memmap[VIRT_MEM].base`).
+2. We can see that the base address of the ram is also set to be the boot loader
+    address. they load the kernel at line 1875 
+        `arm_load_kernel(ARM_CPU(first_cpu), machine, &vms->bootinfo);`
 
 After creating a the program in [my bare metal tutorial](first-bare-metal-program.md)
 
